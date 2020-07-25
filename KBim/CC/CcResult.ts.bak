@@ -1,0 +1,45 @@
+﻿namespace KBim {
+    export class CcResult {
+
+        public Code: string;
+        public Storey: string;
+        public Result: string;
+        public Check: string;
+        public Message: string;
+        public Comment: string;
+        public selector: CcSelector;
+        public CoordScale: number;
+
+        public Model: KmModel;
+        ReadJson(json: any) {
+
+            this.Code = json["code"];
+            this.Storey = json["storey"];
+            this.Result = json["result"];
+            this.Check = json["check"]; 
+            this.Message = json["message"];  
+            this.Comment = json["comment"];
+            this.CoordScale = json["coordscale"];   
+
+            var xsel = json["selector"];
+            if (xsel instanceof Object) {
+                this.selector = new CcSelector();
+                this.selector.Result = this;
+
+                this.selector.ReadJson(xsel);
+            }
+        }
+        static FromJson(json: any): CcResult[] {
+            var result: CcResult[] = [];
+
+            for (var item of (json as any[]))
+            {
+                let cc = new CcResult();
+                cc.ReadJson(item);
+                result.push(cc);
+            }
+
+            return result;
+        }
+    } 
+}

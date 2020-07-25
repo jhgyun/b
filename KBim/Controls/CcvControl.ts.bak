@@ -1,0 +1,142 @@
+﻿namespace KBim.Views {
+    export class CcvControl extends U1.Views.VcControl  
+    {
+        private _areas: CcmEntity[] = []; 
+        private _selectedAreas: CcmEntity[] = null;
+        private _isInvalid: boolean = true;
+
+        private _lineSegments: THREE.LineSegments;
+        private _lineGeometry: THREE.BufferGeometry;
+        private _lineMat: THREE.LineBasicMaterial;
+        private _selectedNode: KmNode[] = null; 
+
+        get Areas(): CcmEntity[] {
+            return this._areas;
+        }
+        set Areas(value: CcmEntity[])
+         {
+             this._areas = value;
+            this.InvokePropertyChanged("Areas");
+            this._isInvalid = true;
+            this.View?.Invalidate();
+        } 
+
+        get SelectedAreas(): CcmEntity[] {
+            return this._selectedAreas;
+        }
+        set SelectedAreas(value: CcmEntity[])
+        {
+            this.UpdateHilight(this._selectedNode, false);
+
+            this._selectedAreas = value;
+            this.InvokePropertyChanged("SelectedAreas");
+            this._isInvalid = true;
+            this._selectedNode = [];
+
+            value?.forEach(o_ => {
+                let node = o_.GetIfcNode();
+                let relNodes = o_.GetRelatedNodes();
+
+                this._selectedNode.push(node);
+                relNodes?.forEach(rn_ => this._selectedNode.push(rn_));
+            });
+
+            this.UpdateHilight(this._selectedNode, true);
+            this.View?.Invalidate();
+        }
+
+        SetSelectedAreas(value: CcmEntity[]) {
+            this.SelectedAreas = value;
+        }
+        constructor()
+        {
+            super();
+        }
+         
+        AddArea(area: CcmEntity)
+        {
+            if (this.Areas.Contains(area)) return;
+            this.Areas.push(area); 
+            this.InvokePropertyChanged("Areas");
+        } 
+        get Overlay() {
+            var viewThree = this.View as KBim.Views.ViewThree;
+            var sceneThree = viewThree.Scene as KBim.Views.SceneThree;
+            var overlay = sceneThree.SceneOverlay;
+            return overlay;
+        }
+        Clear() {
+             
+            if (this._lineSegments != null)
+                this.Overlay?.remove(this._lineSegments);
+
+            this._lineMat?.dispose();
+            this._lineGeometry?.dispose();
+
+            this._lineMat = null;
+            this._lineGeometry = null;
+            this._lineSegments = null;
+
+            super.Clear();
+        }
+        OnUpdate() {
+            if (!this._isInvalid)
+                return;
+            this._isInvalid = false;
+
+            var viewThree = this.View as KBim.Views.ViewThree;
+            var sceneThree = viewThree.Scene as KBim.Views.SceneThree;
+            var overlay = sceneThree.SceneOverlay;
+
+           
+            this.Clear();  
+
+            if (this._selectedAreas != null) {
+
+                var lineGeom = new U1.LineBufferGeometry(); 
+                lineGeom.BeginAppend();
+                for (var ent of this._selectedAreas)
+                {
+                    if (ent instanceof CcmEmptySpace)
+                    {
+                        ent.FillLineGeometry(lineGeom);
+                    }
+                    else
+                    {
+                        ent.FillLineGeometry(lineGeom);
+                    }
+                }
+                lineGeom.EndAppend();
+
+                if (lineGeom.PointCount >= 2) {
+                    this._lineGeometry = new THREE.BufferGeometry();
+                    ThreeUtil.ApplyLineBufferGeometry(this._lineGeometry, lineGeom);
+                }
+            }
+
+            if (this._lineGeometry != null)
+            {
+                this._lineMat = new THREE.LineBasicMaterial();
+                this._lineMat.color.setHex(0xFF0000);
+
+                this._lineSegments = new THREE.LineSegments(
+                    this._lineGeometry,
+                    this._lineMat
+                ); 
+
+                this.Overlay.add(this._lineSegments);
+            }
+
+
+        }
+
+        UpdateHilight(nodes: KmNode[], isHilight: boolean) {
+            if (nodes == null || nodes.length == 0)
+                return;
+
+            for (var node of nodes) {
+                node?.SetHilight(isHilight);
+            }
+        }
+    }
+}

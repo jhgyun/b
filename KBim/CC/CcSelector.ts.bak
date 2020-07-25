@@ -1,0 +1,23 @@
+﻿namespace KBim {
+    export class CcSelector {
+        ETYP: string;
+        Entity: CcmEntity;
+        Result: CcResult;
+
+        ReadJson(json: any) {
+            this.ETYP = json["etyp"];
+            if (this.ETYP == "EntityDistance") {
+                this.Entity = new CcmEntityDistance(); 
+            }
+            else if (this.ETYP == "EmptySpace") {
+                this.Entity = new CcmEmptySpace(); 
+            }
+            else {
+                this.Entity = new CcmEntity(); 
+            }
+
+            this.Entity.Selector = this;
+            this.Entity.ReadJson(json["entity"]);
+        }
+    }
+}

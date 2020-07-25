@@ -1,0 +1,711 @@
+﻿header {
+    width: 100%;
+    height: auto;
+    background: #f6f6f6;
+    margin: 0 auto;
+}
+
+body {
+    overflow: hidden;
+}
+
+header nav {
+    width: auto;
+    height: auto;
+    float: left;
+    margin-top: 2px;
+    margin-left: 10px;
+}
+
+#MainArea {
+    position: absolute;
+    width: 100%;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    background: #e3e3e3;
+}
+
+#WorkArea {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 260px;
+}
+
+#ViewArea {
+    position: absolute; 
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+#EditDim {
+    position: absolute;
+}
+
+#RightArea {
+    position: absolute;
+    height: 100%;
+    right: 0;
+    width: 260px;
+    background: #f6f6f6;
+}
+
+#OverlayArea, #ViewArea {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    clip-rule: evenodd;
+}
+
+.tool_button {
+    height: 20px;
+    margin-top: 1px;
+    margin-left: 3px;
+    font-size: 12px;
+    vertical-align: middle;
+}
+
+.PropLabel {
+    font-size: 12px;
+    min-width: 30px;
+    align-content:center;
+    margin:4px;
+}
+
+.PropTable {
+    width: 100%;
+    border: 0;
+}
+
+.PropCategory {
+    margin-left: 20px;
+    font-size: large;
+    font-weight: 700;
+    left: 20px;
+    width: 100%;
+}
+
+.PropInput {
+    width: 60px;
+}
+
+.space {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.PropEdit {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.pnlCreate {
+    position: absolute;
+    display: inline-block;
+    overflow: hidden;
+    text-align: center;
+    margin:0px; 
+}
+
+footer {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    height: 24px;
+    background: #cfd6e5;
+    margin: 0 auto;
+    margin-bottom: 0;
+    clear: both;
+}
+
+#Version {
+    position: absolute;
+    right: 10px;
+    font-size: 10px;
+    float: right;
+    color: midnightblue;
+    vertical-align: middle;
+}
+
+.win_types_listbox {
+    position: relative;
+    width: 100%;
+    margin-left: 10px;
+    margin-right: 10px;
+    left: 2px;
+    right: 2px;
+    max-height: 260px;
+    overflow-y: auto;
+}
+
+.win_types_listbox_item {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: -1px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+
+.panel {
+    margin: 10px;
+}
+
+.fptoolbar {
+    position: fixed;
+    z-index: 101;
+    top: 70px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    height: 36px;
+    line-height: 36px;
+}
+
+.fptoolbar #UbimToolbar {
+    position: relative;
+    border: 1px solid #d9dbdf;
+    background-color: #fafafa;
+    -moz-border-radius: 0 0 4px 4px;
+    -o-border-radius: 0 0 4px 4px;
+    -webkit-border-radius: 0 0 4px 4px;
+    border-radius: 0 0 4px 4px;
+}
+
+.fptoolbar .checkbox label, .fptoolbar .radio label {
+    padding-left: 20px;
+}
+
+.fptoolbar .tooltext {
+    display: none;
+}
+
+.fptoolbar li:hover .tooltext {
+    display: inline;
+}
+
+.fptoolbar .rightline {
+    border-right: 1px solid #d9dbdf;
+    display: inline-block;
+    height: 35px;
+    width: 0;
+    position: absolute;
+    top: 0;
+}
+
+.fptoolbar .bottomline {
+    border-top: 1px solid #c3c4c8;
+    display: block;
+    height: 0;
+    width: 100%;
+}
+
+.fptoolbar .checkbox {
+    margin: 0;
+    text-align: left;
+}
+
+.fptoolbar .checkbox input {
+    position: relative;
+    top: 3px;
+    margin-left: -9px;
+    margin-right: 6px;
+}
+
+.fptoolbar ul.moreoptions {
+    display: none;
+}
+
+.fptoolbar ul.moreoptions.expandmenu {
+    display: block;
+    position: absolute;
+    background-color: rgba(250,250,250,.9);
+    min-width: 142px;
+    border: 1px solid #c3c4c8;
+    font-size: 12px;
+    color: #343a40;
+    top: 100%;
+    left: 0;
+    z-index: 1;
+}
+
+.fptoolbar ul.moreoptions.expandmenu .haschild {
+    display: none;
+}
+
+.fptoolbar ul.moreoptions.expandmenu li.toolitem {
+    clear: both;
+    border-right: 0 none;
+    width: 100%;
+    line-height: 25px;
+    text-align: left;
+    height: 25px;
+    display: block;
+    margin: 0;
+}
+
+.fptoolbar ul.moreoptions.expandmenu li.toolitem .tooltext {
+    display: block;
+    clear: both;
+    text-indent: 10px;
+}
+
+.fptoolbar ul.moreoptions.expandmenu li .toolicon {
+    display: none;
+}
+
+.fptoolbar ul.moreoptions.expandmenu li.hover {
+    background-color: rgba(77,155,214,.149);
+}
+
+.fptoolbar ul.moreoptions.expandmenu li.hover.disabled {
+    background-color: transparent;
+}
+
+.fptoolbar ul.moreoptions.expandmenu .expandmenu {
+    top: 0;
+    left: 100%;
+}
+
+.fptoolbar li {
+    list-style: none;
+    cursor: pointer;
+    color: #5f5f5f;
+}
+
+.fptoolbar li.toolitem {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    margin: 2px 6px;
+}
+
+.fptoolbar li.toolitem .toolicon {
+    border: 1px solid transparent;
+}
+
+.fptoolbar li.hover .toolicon {
+    background-color: rgba(85,172,238,.149);
+    border: 1px solid #03a9f4;
+}
+
+.fptoolbar li.actived .toolicon {
+    background-color: #55acee;
+    border: 1px solid #03a9f4;
+}
+
+.fptoolbar li.actived svg .normal {
+    display: none;
+}
+
+.fptoolbar li.actived svg .selected, .fptoolbar li.disabled.hover svg .normal {
+    display: block !important;
+}
+
+.fptoolbar li.disabled {
+    cursor: default;
+    color: #ccc;
+    opacity: .4;
+}
+
+.fptoolbar li.disabled.hover {
+    color: #ccc;
+    opacity: .4;
+    background-color: transparent;
+}
+
+.fptoolbar li.disabled.hover svg .selected {
+    display: none !important;
+}
+
+.fptoolbar .toolicon {
+    height: 28px;
+    width: 32px;
+}
+
+.fptoolbar .toolicon svg {
+    width: 30px;
+    height: 22px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+}
+
+.fptoolbar .moremenu {
+    background-image: url(ImgToolbar/plus.svg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 6px 6px;
+    width: 6px;
+    height: 6px;
+    display: inline-block;
+    position: relative;
+    left: 5%;
+}
+
+.fptoolbar ul.moreoptions.expandmenu.imageItems .toolitem {
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    border-bottom: 1px solid #e3e3e3;
+    border-right: 1px solid #e3e3e3;
+    float: left;
+    clear: none;
+    overflow: hidden;
+    margin: 0;
+    padding: 10px 10px 15px;
+}
+
+.fptoolbar ul.moreoptions.expandmenu.imageItems .toolitem div.toolicon {
+    border-width: 0;
+    background: 0 0;
+    display: inline-block !important;
+}
+
+.fptoolbar ul.moreoptions.expandmenu.imageItems .toolitem div.toolicon svg {
+    width: 50px;
+    height: 50px;
+}
+
+.fptoolbar ul.moreoptions.expandmenu.imageItems .toolitem div.toolicon svg polygon, .fptoolbar ul.moreoptions.expandmenu.imageItems .toolitem div.toolicon svg rect {
+    stroke: grey;
+}
+
+.fptoolbar ul.moreoptions.expandmenu.imageItems .toolitem.hover div.toolicon {
+    border-width: 0;
+    background: 0 0;
+}
+
+.fptoolbar .nobottomline {
+    border-bottom: 0 none !important;
+}
+
+.fptoolbar .norightline {
+    border-right: 0 none !important;
+}
+
+.fptoolbar ul.moreoptions.upload_data_options.expandmenu {
+    display: none;
+}
+
+.fptoolbar .projectsum svg {
+    height: 23px;
+}
+
+.wallTypeRadioButton .radioBtn {
+    display: inline-block;
+    border: 1px solid #ccc;
+    margin-top: 4px;
+    margin-left: 4px;
+}
+
+.wallTypeRadioButton .radioBtn li {
+    line-height: 21px;
+}
+
+.wallTypeRadioButton .radioBtn li span {
+    cursor: pointer;
+}
+
+.propertybar.statusBar > .contents > li.cdropdown.wallTypeDropdown {
+    width: 150px;
+}
+
+.propertybar.statusBar > .contents > li.cdropdown.wallTypeDropdown > button > svg {
+    margin: 8px 0 0 4px;
+    height: 15px;
+    width: 48px;
+}
+
+.propertybar.statusBar > .contents > li.cdropdown.wallTypeDropdown > button > .utext {
+    margin-left: 10px;
+}
+
+.propertybar.statusBar > .contents > li.cdropdown.wallTypeDropdown > ul {
+    width: 157px;
+    margin-left: -6px;
+}
+
+.propertybar.statusBar > .contents > li.cdropdown.wallTypeDropdown > ul li a {
+    margin-left: 9px;
+    font-size: 13px;
+}
+
+.propertybar.statusBar > .contents > li.cdropdown.wallTypeDropdown > ul li svg {
+    width: 48px;
+    height: 15px;
+    margin: 7px 0 0 9px;
+}
+
+.customized-tile .mix-paint {
+    background-color: #f5f5f5;
+    position: absolute;
+    min-width: 744px;
+    bottom: 10px;
+    right: 10px;
+    left: 10px;
+    top: 80px;
+    z-index: -1;
+}
+
+.customized-tile.mode-iframe .mix-paint {
+    top: 10px;
+}
+
+.customized-tile .mix-paint.md-show {
+    z-index: 89;
+}
+
+.customized-tile .holder {
+    top: 60px;
+    bottom: 34px;
+    left: 0;
+    right: 10px;
+    position: absolute;
+}
+
+.customized-tile .holder .paint {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.customized-tile .header {
+    width: 100%;
+    background-color: #fff;
+    position: relative;
+    top: 0;
+    height: 60px;
+    border-bottom: 1px solid #e3e3e3;
+    text-align: center;
+}
+
+.customized-tile .header .input-wrapper * {
+    margin-top: 15px;
+    width: 20em;
+    text-align: center;
+    line-height: 36px;
+    padding: 0 5px;
+}
+
+.customized-tile .header .input-wrapper:hover span {
+    background-color: #f2f2f2;
+}
+
+.customized-tile .header .input-wrapper input {
+    display: none;
+}
+
+.customized-tile .header .input-wrapper span {
+    display: inline-block;
+}
+
+.customized-tile .footer {
+    left: 0;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+.customized-tile .header .mclose {
+    width: 50px;
+    height: 30px;
+    border-left: 1px solid #cfcfcf;
+    line-height: 30px;
+    position: absolute;
+    top: 16px;
+    font-weight: 400;
+    right: 4px;
+    float: right;
+    cursor: pointer;
+    font-size: 18px;
+    text-align: center;
+}
+
+.customized-tile .footer .btn-primary {
+    right: 0;
+    margin-right: 0;
+}
+
+.customized-tile .footer .disable .btn-primary {
+    background-color: grey;
+    border-color: grey;
+}
+
+.customized-tile .footer .propertybar {
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    padding-left: 8px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    height: 36px;
+}
+
+.customized-tile .footer .propertybar .imagebutton svg {
+    margin-top: 6px;
+    padding-top: 0;
+    width: 20px;
+    height: 20px;
+}
+
+.customized-tile .footer .propertybar .imagebutton svg * {
+    fill: grey;
+}
+
+.customized-tile .footer .propertybar .disable .imagebutton svg *, .footer .propertybar .disable .imagebutton svg:hover * {
+    fill: #adadad;
+}
+
+.customized-tile .footer .propertybar .wallPaperButton {
+    margin-top: 3px;
+}
+
+.customized-tile .footer .propertybar .wallPaperButton img {
+    width: 50px;
+}
+
+.customized-tile .footer ul > li:last-child {
+    float: right;
+}
+
+.customized-tile .footer .propertybar .pressed .imagebutton svg *, .footer .propertybar .imagebutton svg:hover * {
+    fill: #297bb7;
+}
+
+.customized-tile .mask {
+    display: none;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: fixed;
+    z-index: 100;
+    background-color: #fff;
+    opacity: .3;
+}
+
+.customizedTiles-StatusBar li.customizedtilesFitScreen, .customizedTiles-StatusBar li.customizedtilesZoomIn, .customizedTiles-StatusBar li.customizedtilesZoomOut, .customizedTiles-StatusBar li.right, .customizedTiles-StatusBar li.saveBtn, .customizedTiles-StatusBar li.showHelp {
+    float: right;
+}
+
+.viewports .viewport .resize-controls .viewport-button {
+  padding: 2px 5px 4px 5px;
+  margin:2px;
+}
+
+.undoButton{
+    background:url(../Icons/undo.png) ;
+    background-size: 100%;
+    cursor:pointer;
+    border:none;
+    width:32px;
+    height:32px;
+    background-repeat:no-repeat;
+}
+.redoButton{
+    background:url(../Icons/redo.png) ;
+    background-size: 100%;
+    cursor:pointer;
+    border:none;
+    width:36px;
+    height:36px;
+    background-repeat:no-repeat;
+}
+.copyButton{
+    background:url(../Icons/copy.png) no-repeat ;
+    background-size: 85%;
+    cursor:pointer;
+    border:none;
+    width:24px;
+    height:24px;
+}
+.pasteButton{
+    background:url(../Icons/Paste.png) no-repeat ;
+    background-size: 100%;
+    cursor:pointer;
+    border:none;
+    width:24px;
+    height:24px;
+}
+.openButton{
+    background:url(../Icons/Open.png) no-repeat ;
+    background-size: 100%;
+    cursor:pointer;
+    border:none;
+    width:24px;
+    height:24px;
+}
+.saveButton{
+    background:url(../Icons/Save.png) no-repeat ;
+    background-size: 100%;
+    cursor:pointer;
+    border:none;
+    width:24px;
+    height:24px;
+}
+.delButton{
+    background:url(../Icons/Del.png) no-repeat ;
+    background-size: 100%;
+    cursor:pointer;
+    border:none;
+    width:36px;
+    height:36px;
+    background-repeat:no-repeat;
+}
+
+.glyphicon_flip {
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: FlipH;
+    -ms-filter: "FlipH";
+}
+
+/* Begin Loading spinner */
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid blue;
+  border-right: 16px solid green;
+  border-bottom: 16px solid red;
+  border-left: 16px solid pink;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+/* End Loading spinner */
+
+
+.toolbar_btn {
+    background-color: lightgray;
+    border: none;
+    margin-left: 2px;
+    margin-right: 2px;
+}

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- import the webpage's stylesheet -->
+    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="./css/site.css">
+
+    <script>
+        // WebXR requires HTTPS, so the site doesn't work if someone manually enters
+        // the URL and ends up using HTTP. To work around this, force redirect from
+        // http to https for non-localhost addresses.
+        if (window.location.protocol == "http:" &&
+            window.location.hostname != "localhost" &&
+            window.location.hostname != "127.0.0.1" &&
+            window.location.hostname != "[::1]") {
+            window.location = window.location.href.replace('http:', 'https:');
+        }
+    </script>
+
+    <!-- import the webpage's javascript files -->
+    <script src="./lib/aframe/aframe-master.js"></script>
+    <script src="./lib/aframe-extras/aframe-extras.controls.js"></script> 
+    <script src="./Lib/jquery/dist/jquery.js"></script>
+    <script src="./Lib/U1/U1.js"></script>
+    <script src="./KBim.WebViewer.js"></script>
+    <script src="./js/site.js"></script>
+
+    <script>
+        // Define a few custom components useful for AR mode. While these are somewhat reusable,
+        // I recommend checking if there are officially supported alternatives before copying
+        // these into new projects.
+
+        // See also https://github.com/aframevr/aframe/pull/4356
+        AFRAME.registerComponent('hide-in-ar-mode', {
+            // Set this object invisible while in AR mode.
+            init: function () {
+                this.el.sceneEl.addEventListener('enter-vr', (ev) => {
+                    this.wasVisible = this.el.getAttribute('visible');
+                    if (this.el.sceneEl.is('ar-mode')) {
+                        this.el.setAttribute('visible', false);
+                    }
+                });
+                this.el.sceneEl.addEventListener('exit-vr', (ev) => {
+                    if (this.wasVisible) this.el.setAttribute('visible', true);
+                });
+            }
+        });
+
+        AFRAME.registerComponent('ar-shadows', {
+            // Swap an object's material to a transparent shadows-only material while
+            // in AR mode. Intended for use with a ground plane. The object is also
+            // set visible while in AR mode, this is useful if it's hidden in other
+            // modes due to them using a 3D environment.
+            schema: {
+                opacity: { default: 0.3 }
+            },
+            init: function () {
+                this.el.sceneEl.addEventListener('enter-vr', (ev) => {
+                    this.wasVisible = this.el.getAttribute('visible');
+                    if (this.el.sceneEl.is('ar-mode')) {
+                        this.savedMaterial = this.el.object3D.children[0].material;
+                        this.el.object3D.children[0].material = new THREE.ShadowMaterial();
+                        this.el.object3D.children[0].material.opacity = this.data.opacity;
+                        this.el.setAttribute('visible', true);
+                    }
+                });
+                this.el.sceneEl.addEventListener('exit-vr', (ev) => {
+                    if (this.savedMaterial) {
+                        this.el.object3D.children[0].material = this.savedMaterial;
+                        this.savedMaterial = null;
+                    }
+                    if (!this.wasVisible) this.el.setAttribute('visible', false);
+                });
+            }
+        });
+
+
+    </script>
+</head>
+<body>
+
+    <a-scene>
+        <a-assets timeout="30000">
+                <a-asset-item id="building_1"
+                              src="./ul.glb" 
+                              response-type="arraybuffer">
+                </a-asset-item>
+        </a-assets>
+
+        <a-entity id="world"> 
+            <a-entity scale="0.007159011236200307 0.007159011236200307 0.007159011236200307"
+                      rotation="-90 0 0">
+                <a-entity position="-5199.714000000003 -1855.8409997814442  23.83507951031781">
+
+                        <a-entity id="prime_1" class="collidable"
+                                  kac-gaze
+                                  gltf-model="#building_1"></a-entity> 
+                </a-entity>
+            </a-entity> 
+        </a-entity>
+
+        <a-entity light="type: ambient; intensity: 0.5;"></a-entity>
+        <a-light type="directional"
+                 light="castShadow: true;
+                      shadowMapHeight: 1024;
+                      shadowMapWidth: 1024;
+                      shadowCameraLeft: -7;
+                      shadowCameraRight: 5;
+                      shadowCameraBottom: -5;
+                      shadowCameraTop: 5;"
+                 id="light"
+                 target="building"
+                 position="-5 3 1.5"></a-light>
+
+        <a-entity id="rig">
+            <a-camera id="cam">
+                <a-text position="-1 1 -2" id="msg" value=""></a-text>
+            </a-camera>
+        </a-entity>
+
+        <!-- hand controls -->
+        <a-entity laser-controls="hand: left"
+                  line="color: red; opacity: 0.75"
+                  raycaster="objects:.collidable; enabled:true; far: 10"
+                  kac-debug>
+        </a-entity>
+        <a-entity laser-controls="hand: right"
+                  line="color: red; opacity: 0.75"
+                  raycaster="objects:.collidable; enabled:true; far: 10"
+                  kac-debug>
+        </a-entity>
+    </a-scene>
+
+    <div id="text">
+        <p>
+            Size: <button id="btn_full">Full</button>
+            <button id="btn_half">1/2</button>
+            <button id="btn_quarter">1/4</button>
+        </p>
+
+    </div>
+    <script>
+        function setSize(scale) {
+            document.getElementById('building').setAttribute('scale', { x: scale, y: scale, z: scale });
+        }
+        document.getElementById('btn_full').onclick = setSize.bind(this, 1);
+        document.getElementById('btn_half').onclick = setSize.bind(this, 0.5);
+        document.getElementById('btn_quarter').onclick = setSize.bind(this, 0.25);
+    </script>
+</body>
+</html>

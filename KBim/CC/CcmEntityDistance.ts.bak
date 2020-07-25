@@ -1,0 +1,43 @@
+﻿///<reference path="CcmEntity.ts" />
+namespace KBim { 
+    export class CcmEntityDistance extends CcmEntity {
+        public P1: U1.Vector3;
+        public P2: U1.Vector3;
+        public From: string;
+        public To: string;
+
+        ReadJson(json: any) {
+            super.ReadJson(json);
+
+            this.P1 = new U1.Vector3();
+            this.P2 = new U1.Vector3();
+
+            var f1s = (json["p1"] as string).split(",");
+            var f2s = (json["p2"] as string).split(",");
+
+            this.P1.X = parseFloat(f1s[0]);
+            this.P1.Y = parseFloat(f1s[1]);
+            this.P1.Z = parseFloat(f1s[2]);
+
+            this.P2.X = parseFloat(f2s[0]);
+            this.P2.Y = parseFloat(f2s[1]);
+            this.P2.Z = parseFloat(f2s[2]);
+
+            this.From = json["from"];
+            this.To = json["to"]; 
+        }
+        GetRelatedNodes() {
+            return [this.GetModel().node_map.get(this.From), this.GetModel().node_map.get(this.To)];
+        }
+        FillLineGeometry(lineGeom: U1.LineBufferGeometry, tm?: U1.Matrix4)
+        {
+            var p1_ = this.P1.Clone();
+            var p2_ = this.P2.Clone();
+            var scl = this.Selector.Result.CoordScale;
+            p1_.Scale(scl);
+            p2_.Scale(scl);
+
+            lineGeom.AppendLine(p1_, p2_, tm); 
+        }
+    }
+}
