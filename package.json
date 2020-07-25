@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "my first project", 
   "scripts": {
-    "start": "index.js",
+    "start": "npm run dev",
+    "start:https": "cross-env SSL=true npm run dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

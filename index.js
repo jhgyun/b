@@ -1,6 +1,16 @@
-var http = require('http');
-var fs = require('fs'); // 파일 읽기, 쓰기 등 을 할 수 있는 모듈 
-var path = require('path');
+const https = require('https');
+const fs = require('fs');
+
+const options = {
+  key: fs.readFileSync('key.pem'),
+  cert: fs.readFileSync('cert.pem')
+};
+
+ 
+
+// var http = require('http');
+// var fs = require('fs'); // 파일 읽기, 쓰기 등 을 할 수 있는 모듈 
+// var path = require('path');
 
 http.createServer(function (request, response) {
     if (request.method == 'GET' && request.url == '/') {
